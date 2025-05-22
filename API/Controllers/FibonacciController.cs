@@ -20,6 +20,10 @@ public class FibonacciController : ControllerBase
     {
         try
         {
+            if (string.IsNullOrEmpty(city))
+            {
+                return BadRequest("Заполните поле названием города");
+            }
             var weatherFibonacciData = await _weatherFibonacciService.GetWeatherFibonacciAsync(city);
             var tempInCelsius = Math.Round(weatherFibonacciData.Temperature - 273.15, 1);
             return Ok(new

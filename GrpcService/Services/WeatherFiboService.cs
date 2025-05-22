@@ -17,15 +17,26 @@ public class WeatherFiboService : Fibo.Grpc.WeatherFiboService.WeatherFiboServic
     public override async Task<WeatherResponse> GetWeatherAndFibonacci(WeatherRequest request,
         ServerCallContext context)
     {
-        var city = request.City;
-
-        var weatherFibonacciData = await _weatherFibonacciService.GetWeatherFibonacciAsync(city);
-
-        return new WeatherResponse
+        try
         {
-            City = weatherFibonacciData.City,
-            Temperature = Math.Round(weatherFibonacciData.Temperature - 273.15, 1),
-            FibonacciNumbers = { weatherFibonacciData.Fibonacci }
-        };
+            if (string.IsNullOrWhiteSpace(request.City))
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, "Название города не может быть пустым"));
+            }
+
+            var weatherFibonacciData = await _weatherFibonacciService.GetWeatherFibonacciAsync(request.City);
+
+            return new WeatherResponse
+            {
+                City = weatherFibonacciData.City,
+                Temperature = Math.Round(weatherFibonacciData.Temperature - 273.15, 1),
+                FibonacciNumbers = { weatherFibonacciData.Fibonacci }
+            };
+        }
+        catch (Exception ex)
+        {
+            throw new RpcException(
+                new Status(StatusCode.Internal, $"Внутренняя ошибка сервера: {ex.Message}"));
+        }
     }
 }
