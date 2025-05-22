@@ -21,11 +21,11 @@ public class FibonacciController : ControllerBase
         try
         {
             var weatherFibonacciData = await _weatherFibonacciService.GetWeatherFibonacciAsync(city);
-            
+            var tempInCelsius = Math.Round(weatherFibonacciData.Temperature - 273.15, 1);
             return Ok(new
             {
                 weatherFibonacciData.City,
-                weatherFibonacciData.Temperature,
+                tempInCelsius,
                 weatherFibonacciData.Fibonacci
             });
         }

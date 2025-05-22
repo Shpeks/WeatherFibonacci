@@ -24,7 +24,7 @@ public class WeatherFiboService : Fibo.Grpc.WeatherFiboService.WeatherFiboServic
         return new WeatherResponse
         {
             City = weatherFibonacciData.City,
-            Temperature = weatherFibonacciData.Temperature,
+            Temperature = Math.Round(weatherFibonacciData.Temperature - 273.15, 1),
             FibonacciNumbers = { weatherFibonacciData.Fibonacci }
         };
     }
