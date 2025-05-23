@@ -1,31 +1,29 @@
-﻿using Core.Interfaces;
+﻿using Core;
+using Core.Interfaces;
 using Core.Models;
 using Core.Services;
 using DAL.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-var builder = new ConfigurationBuilder()
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+var conf = ConfigurationLoader.LoadConfiguration();
 
-var configuration = builder.Build();
 var services = new ServiceCollection();
 
 services.Configure<OpenWeatherMapApiOptions>(
-    configuration.GetSection("OpenWeatherMapApiOptions"));
-    
+    conf.GetSection("OpenWeatherMapApiOptions"));
+
 services.AddDbContext<ApplicationDbContext>(options => 
-    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(conf["ConnectionStrings:DefaultConnection"]));
     
 services.AddScoped<IFibonacciService, FibonacciService>();
 services.AddScoped<IWeatherFibonacciService, WeatherFibonacciService>();
 
 services.AddHttpClient<IWeatherService, WeatherService>((serviceProvider, client) =>
 {
-    var options = serviceProvider.GetRequiredService<IOptions<OpenWeatherMapApiOptions>>().Value;
+    var options = serviceProvider
+        .GetRequiredService<IOptions<OpenWeatherMapApiOptions>>().Value;
     client.BaseAddress = new Uri(options.BaseUrl);
 });
 
