@@ -23,7 +23,7 @@ public class WeatherFibonacciService : IWeatherFibonacciService
         return new WeatherFibonacciData
         {
             City = weatherData.Main.City,
-            Temperature = weatherData.Main.Temp,
+            Temperature = Math.Round(weatherData.Main.Temp - 273.15, 1),
             Fibonacci = fibonacciData
         };
     }

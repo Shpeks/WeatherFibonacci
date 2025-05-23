@@ -25,7 +25,7 @@ public class FibonacciController : ControllerBase
                 return BadRequest("Заполните поле названием города");
             }
             var weatherFibonacciData = await _weatherFibonacciService.GetWeatherFibonacciAsync(city);
-            var tempInCelsius = Math.Round(weatherFibonacciData.Temperature - 273.15, 1);
+            var tempInCelsius = weatherFibonacciData.Temperature;
             return Ok(new
             {
                 weatherFibonacciData.City,

@@ -52,7 +52,7 @@ while (true)
     {
         var weatherFibonacciData = await weatherFibonacciService.GetWeatherFibonacciAsync(city);
 
-        Console.WriteLine($"\nВ городе '{weatherFibonacciData.City}': {weatherFibonacciData.Temperature - 273.15} C");
+        Console.WriteLine($"\nВ городе '{weatherFibonacciData.City}': {weatherFibonacciData.Temperature} C");
         Console.WriteLine("Числа Фибоначчи: " + string.Join(", ", weatherFibonacciData.Fibonacci));
     }
     catch (Exception e)
