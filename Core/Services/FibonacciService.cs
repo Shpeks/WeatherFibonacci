@@ -13,7 +13,11 @@ public class FibonacciService : IFibonacciService
     {
         _context = context;
     }
-
+    /// <summary>
+    /// Получение чисел фибоначчи
+    /// </summary>
+    /// <param name="count">Количество чисел</param>
+    /// <returns>Возвращает список чисел фибоначчи</returns>
     public async Task<IEnumerable<int>> GetFibonacciNumberAsync(int count)
     {
         await using var transaction = await _context.Database.BeginTransactionAsync();
@@ -40,7 +44,9 @@ public class FibonacciService : IFibonacciService
             throw;
         }
     }
-
+    /// <summary>
+    /// Генератор чисел фибоначчи
+    /// </summary>
     private IEnumerable<int> GenerateFibonacciNum(int count)
     {
         var result = new List<int>();

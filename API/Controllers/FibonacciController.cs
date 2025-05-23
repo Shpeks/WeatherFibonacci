@@ -14,7 +14,11 @@ public class FibonacciController : ControllerBase
     {
         _weatherFibonacciService = weatherFibonacciService;
     }
-
+    
+    /// <summary>
+    /// Обрабатывает GET-запрос для получения температуры и чисел Фибоначчи по названию города.
+    /// </summary>
+    /// <returns>Возвращает 200 OK с данными о погоде и числах Фибоначчи</returns>
     [HttpGet]
     public async Task<IActionResult> Index(string city)
     {

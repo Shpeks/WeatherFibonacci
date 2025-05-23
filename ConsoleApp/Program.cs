@@ -33,6 +33,7 @@ var serviceProvider = services.BuildServiceProvider();
 
 var weatherFibonacciService = serviceProvider.GetRequiredService<IWeatherFibonacciService>();
 
+// Цикл пользовательского ввода с выводом погоды и чисел Фибоначчи
 while (true)
 {
     Console.WriteLine("Введите название города (или 'exit' для выхода): ");

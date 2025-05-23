@@ -13,7 +13,11 @@ public class WeatherFibonacciService : IWeatherFibonacciService
         _fibonacciService = fibonacciService;
         _weatherService = weatherService;
     }
-
+    /// <summary>
+    /// Получение температуры и чисел фибоначчи по количеству букв в названии города
+    /// </summary>
+    /// <param name="city">Город</param>
+    /// <returns>Возвращает температуру в C, город, числа фибоначчи</returns>
     public async Task<WeatherFibonacciData> GetWeatherFibonacciAsync(string city)
     {
         var weatherData = await _weatherService.GetWeatherDataAsync(city);

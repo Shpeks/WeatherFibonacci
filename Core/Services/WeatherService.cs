@@ -17,7 +17,14 @@ public class WeatherService : IWeatherService
         _httpClient = httpClient;
         _options = options.Value;
     }
-
+    
+    /// <summary>
+    /// Получение данных о погоде по названию города 
+    /// </summary>
+    /// <param name="city">Город</param>
+    /// <returns>Возвращает температуру в F</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="Exception"></exception>
     public async Task<WeatherData> GetWeatherDataAsync(string city)
     {
         if (string.IsNullOrEmpty(city))

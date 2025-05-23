@@ -13,8 +13,15 @@ public class WeatherFiboService : Fibo.Grpc.WeatherFiboService.WeatherFiboServic
     {
         _weatherFibonacciService = weatherFibonacciService;
     }
-
-    public override async Task<WeatherResponse> GetWeatherAndFibonacci(WeatherRequest request,
+    /// <summary>
+    /// Обрабатывает gRPC-запрос на получение температуры и чисел Фибоначчи по названию города
+    /// </summary>
+    /// <param name="request">gRPC-запрос, содержащий название города</param>
+    /// <param name="context">Контекст gRPC-сервера</param>
+    /// <returns>Ответ <see cref="WeatherResponse"/> с температурой и числами Фибоначчи</returns>
+    /// <exception cref="RpcException">Выбрасывается при отсутствии названия города или при внутренних ошибках сервера</exception>
+    public override async Task<WeatherResponse> GetWeatherAndFibonacci(
+        WeatherRequest request,
         ServerCallContext context)
     {
         try
